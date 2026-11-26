@@ -1,37 +1,26 @@
 # Grocery Sales ETL Pipeline
 
-A robust Extract-Transform-Load (ETL) pipeline for processing and analyzing grocery store sales data across multiple departments.
+A Python pipeline joins weekly grocery sales with supplementary Parquet data, cleans the records, and exports detailed sales and monthly averages as CSV files.
 
-## Project Overview
+## Run locally
 
-This project implements a complete ETL pipeline for processing retail sales data. It handles data extraction from multiple sources, transforms raw data into a clean format suitable for analysis, and loads processed datasets in CSV format. The pipeline includes built-in validation to ensure data integrity throughout the process.
+Clone the project and install its data dependencies in a Python environment.
 
-## Features
+```sh
+git clone https://github.com/joalsebaey/Grocery-Sales-ETL-Pipeline.git
+cd Grocery-Sales-ETL-Pipeline
+python -m pip install pandas pyarrow
+```
 
-- **Data Extraction**: Merge store sales with supplementary data from parquet files
-- **Data Transformation**:
-  - Handle missing values with appropriate imputation strategies
-  - Extract time-based features from date fields
-  - Filter data based on business rules
-  - Intelligently select relevant columns for analysis
-- **Data Aggregation**: Calculate monthly average sales metrics
-- **Data Loading**: Export processed data to standardized CSV format
-- **Validation**: Verify output data integrity with automated checks
+Supply the two input files using the paths in [config.py](config.py). Run commands from the repository root.
 
-## Project Structure
+| Input | Path |
+| --- | --- |
+| Weekly sales records | `data/raw/grocery_sales.csv` |
+| Supplementary data | `data/raw/extra_data.parquet` |
 
-- `data/`: Directory for raw and processed data files
-- `src/`: Source code for the ETL pipeline components
-- `tests/`: Unit tests for pipeline functions
-- `main.py`: Main script to run the complete ETL pipeline
-- `config.py`: Configuration settings for the pipeline
+```sh
+python main.py
+```
 
-## Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/grocery-sales-etl.git
-cd grocery-sales-etl
-
-# Install dependencies
-pip install -r requirements.txt
+The pipeline writes `data/processed/clean_data.csv` and `data/processed/agg_data.csv`. To inspect the processing steps, start with [main.py](main.py), then follow [extraction](src/extract.py), [transformation](src/transform.py), [loading](src/load.py), and [validation](src/validate.py). The [tests](tests) cover the individual stages.
