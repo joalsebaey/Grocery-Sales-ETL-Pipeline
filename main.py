@@ -67,6 +67,7 @@ def run_pipeline():
             print("ETL pipeline completed with validation errors:")
             print(f"Clean data validation: {'Success' if clean_data_valid else 'Failed'}")
             print(f"Aggregated data validation: {'Success' if agg_data_valid else 'Failed'}")
+            return False
             
     except Exception as e:
         print(f"Error running ETL pipeline: {e}")
@@ -76,4 +77,4 @@ def run_pipeline():
 
 if __name__ == "__main__":
     create_directories()
-    run_pipeline()
+    raise SystemExit(0 if run_pipeline() else 1)
